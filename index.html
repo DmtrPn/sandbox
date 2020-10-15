@@ -5,33 +5,72 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <title>Page title</title>
         <style>
-            .lds-dual-ring {
-                display: inline-block;
-                width: 80px;
-                height: 80px;
-            }
-            .lds-dual-ring:after {
-                content: " ";
-                display: block;
-                width: 64px;
-                height: 64px;
-                margin: 8px;
+            .loader {
+                font-size: 20px;
+                margin: 50px auto;
+                text-indent: -9999em;
+                width: 11em;
+                height: 11em;
                 border-radius: 50%;
-                border: 6px solid #414cf5;
-                border-color: #414cf5 transparent #414cf5 transparent;
-                animation: lds-dual-ring 1.2s linear infinite;
+                background: #000000;
+                background: -moz-linear-gradient(to top, #000000 28%, rgba(41,55,53, 0) 88%);
+                background: -webkit-linear-gradient(to top, #000000 28%, rgba(41,55,53, 0) 88%);
+                background: -o-linear-gradient(to top, #000000 28%, rgba(41,55,53, 0) 88%);
+                background: -ms-linear-gradient(to top, #000000 28%, rgba(41,55,53, 0) 88%);
+                background: linear-gradient(to top, #000000 28%, rgba(41,55,53, 0) 88%);
+                position: relative;
+                -webkit-animation: load3 5s infinite linear;
+                animation: load3 5s infinite linear;
+                -webkit-transform: translateZ(0);
+                -ms-transform: translateZ(0);
+                transform: translateZ(0);
             }
-            @keyframes lds-dual-ring {
+            .loader:before {
+                width: 75%;
+                height: 74%;
+                background: #000000;
+                border-radius: 123% 95% 79% 69%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                content: '';
+            }
+            .loader:after {
+                background: #ffffff;
+                width: 75%;
+                height: 75%;
+                border-radius: 50%;
+                content: '';
+                margin: auto;
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+            }
+            @-webkit-keyframes load3 {
                 0% {
+                    -webkit-transform: rotate(0deg);
                     transform: rotate(0deg);
                 }
                 100% {
+                    -webkit-transform: rotate(360deg);
+                    transform: rotate(360deg);
+                }
+            }
+            @keyframes load3 {
+                0% {
+                    -webkit-transform: rotate(0deg);
+                    transform: rotate(0deg);
+                }
+                100% {
+                    -webkit-transform: rotate(360deg);
                     transform: rotate(360deg);
                 }
             }
         </style>
     </head>
     <body>
-        <div class="lds-dual-ring"></div>
+        <div class="loader"></div>
     </body>
 </html>
