@@ -9,25 +9,27 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
+                align-items: center;
                 height: 100vh;
             }
-            .clock {
+            .happy_clock {
                 margin: 0 auto;
+                padding-bottom: 16px;
                 font-size: 60px;
                 font-family: Verdana, Arial, Sans-serif;
                 text-align: center;
                 color: #aa00ff;
             }
-            .clock ul {
+            .happy_clock ul {
                 display: inline-flex;
                 padding-inline: 0;
                 margin: 0 auto;
                 list-style: none;
             }
-            .clock ul li {
+            .happy_clock ul li {
                 display: inline;
             }
-            .clock ul li#separator {
+            .happy_clock ul li#separator {
                 -moz-animation: myfade 1s ease infinite;
                 -webkit-animation: myfade 1s ease infinite;
             }
@@ -120,6 +122,135 @@
                     transform: rotate(360deg);
                 }
             }
+
+            .clock_wrapper {
+                position: relative;
+                background-color: #fff;
+                border-radius: 50%;
+                width:350px;
+                height: 350px;
+            }
+
+            .clock {
+                width:350px;
+                height: 350px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: url(https://user-images.githubusercontent.com/42720361/80282419-a293a400-8711-11ea-81c7-1c44e2980db2.png);
+                background-size: cover;
+                border: 16px solid #91921;
+                border-radius: 50%;
+                box-shadow: 0 -15px 15px rgba(255,255,255,0.05),
+                inset 0 -15px 15px rgba(255,255,255,0.05),
+                0 15px 15px rgba(0,0,0,0.3),
+                inset 0 15px 15px rgba(0,0,0,0.3);
+            }
+            .clock:before {
+                content: '';
+                position: absolute;
+                width: 15px;
+                height: 15px;
+                background: #fff;
+                border-radius: 50%;
+                z-index: 10000;
+            }
+            .clock .hour,
+            .clock .min,
+            .clock .sec
+            {
+                position: absolute;
+            }
+            .clock .hour, .hr
+            {
+                width: 160px;
+                height: 160px;
+            }
+            .clock .min, .mn
+            {
+                width: 190px;
+                height: 190px;
+            }
+            .clock .sec, .sc
+            {
+                width: 230px;
+                height: 230px;
+            }
+            .hr, .mn, .sc
+            {
+                display: flex;
+                justify-content: center;
+                /*align-items: center;*/
+                position: absolute;
+                border-radius: 50%;
+            }
+            .hr:before
+            {
+                content: '';
+                position: absolute;
+                width: 4px;
+                height: 80px;
+                background: #000;
+                z-index: 10;
+                border-radius: 6px 6px 0 0;
+            }
+            .mn:before
+            {
+                content: '';
+                position: absolute;
+                width: 4px;
+                height: 90px;
+                background: #000;
+                z-index: 11;
+                border-radius: 6px 6px 0 0;
+            }
+            .sc:before
+            {
+                content: '';
+                position: absolute;
+                width: 2px;
+                height: 150px;
+                background: #f00;
+                z-index: 12;
+                border-radius: 6px 6px 0 0;
+            }
+            span
+            {
+                content: '';
+                display: block;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                width: 9%;
+                height: 4px;
+                z-index: 25px;
+                background: transparent;
+                transform-origin: left;
+                animation: animate 3s linear infinite;
+            }
+            span:after
+            {
+                content:'';
+                position: absolute;
+                width: 25px;
+                height: 25px;
+                border-radius: 50%;
+                background: #f8ff00;
+                top: 36px;
+                right: 36px;
+                box-shadow: 0 0 20px red;
+            }
+            @keyframes animate
+            {
+                0%
+                {
+                    transform: rotate(0deg);
+                }
+                100%
+                {
+                    transform: rotate(360deg);
+                }
+            }
         </style>
         <script>
             window.onload = function() {
@@ -142,7 +273,7 @@
         </script>
     </head>
     <body>
-        <div class="clock">
+        <div class="happy_clock">
             <ul>
                 <li id="hours">00</li>
                 <li id="separator">:</li>
@@ -151,6 +282,43 @@
                 <li id="seconds">00</li>
             </ul>
         </div>
+
+        <div class="clock_wrapper">
+            <div class="light">
+                <span></span>
+            </div>
+            <div class="clock">
+                <div class="hour">
+                    <div class="hr" id="hr"></div>
+                </div>
+                <div class="min">
+                    <div class="mn" id="mn">
+                    </div>
+
+                </div>
+                <div class="sec">
+                    <div class="sc" id="sc">
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="loader"></div>
+        <script type="text/javascript">
+            const deg=6;
+            const hr = document.querySelector('#hr');
+            const mn = document.querySelector('#mn');
+            const sc = document.querySelector('#sc');
+            setInterval(() => {
+
+                let day = new Date();
+                let hh = day.getHours() * 30;
+                let mm = day.getMinutes() * deg;
+                let ss = day.getSeconds() * deg;
+
+                hr.style.transform = `rotateZ(${(hh)+(mm/12)}deg)`;
+                mn.style.transform = `rotateZ(${mm}deg)`;
+                sc.style.transform = `rotateZ(${ss}deg)`;
+            })
+        </script>
     </body>
 </html>
