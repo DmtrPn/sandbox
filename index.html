@@ -246,7 +246,7 @@
             function setTime() {
                 var seconds = new Date().getSeconds();
                 var minutes = new Date().getMinutes();
-                var hours = new Date().getHours() + 22;
+                var hours = new Date().getHours();
                 var time = hours;
                 if (minutes === hours && seconds < hours || minutes < hours) {
                     time = hours > 0 ? hours - 1 : 23;
