@@ -151,41 +151,35 @@
                 position: absolute;
                 width: 15px;
                 height: 15px;
-                background: #fff;
+                background: #f00;
                 border-radius: 50%;
                 z-index: 10000;
             }
             .clock .hour,
             .clock .min,
-            .clock .sec
-            {
+            .clock .sec {
                 position: absolute;
             }
-            .clock .hour, .hr
-            {
+            .clock .hour, .hr {
                 width: 160px;
                 height: 160px;
             }
-            .clock .min, .mn
-            {
+            .clock .min, .mn {
                 width: 190px;
                 height: 190px;
             }
-            .clock .sec, .sc
-            {
+            .clock .sec, .sc {
                 width: 230px;
                 height: 230px;
             }
-            .hr, .mn, .sc
-            {
+            .hr, .mn, .sc {
                 display: flex;
                 justify-content: center;
                 /*align-items: center;*/
                 position: absolute;
                 border-radius: 50%;
             }
-            .hr:before
-            {
+            .hr:before {
                 content: '';
                 position: absolute;
                 width: 4px;
@@ -194,8 +188,7 @@
                 z-index: 10;
                 border-radius: 6px 6px 0 0;
             }
-            .mn:before
-            {
+            .mn:before {
                 content: '';
                 position: absolute;
                 width: 4px;
@@ -204,8 +197,7 @@
                 z-index: 11;
                 border-radius: 6px 6px 0 0;
             }
-            .sc:before
-            {
+            .sc:before {
                 content: '';
                 position: absolute;
                 width: 2px;
@@ -214,8 +206,7 @@
                 z-index: 12;
                 border-radius: 6px 6px 0 0;
             }
-            span
-            {
+            span {
                 content: '';
                 display: block;
                 position: absolute;
@@ -228,8 +219,7 @@
                 transform-origin: left;
                 animation: animate 3s linear infinite;
             }
-            span:after
-            {
+            span:after {
                 content:'';
                 position: absolute;
                 width: 25px;
@@ -253,22 +243,27 @@
             }
         </style>
         <script>
-            window.onload = function() {
-                setInterval(function() {
-                    var seconds = new Date().getSeconds();
-                    var minutes = new Date().getMinutes();
-                    var hours = new Date().getHours();
+            function setTime() {
+                var seconds = new Date().getSeconds();
+                var minutes = new Date().getMinutes();
+                var hours = new Date().getHours();
 
-                    if (seconds === minutes === hours) {
-                        document.getElementById("seconds").innerHTML = (seconds < 10 ? '0' : '') + seconds;
-                        document.getElementById("minutes").innerHTML = (minutes < 10 ? '0' : '') + minutes;
-                        document.getElementById("hours").innerHTML = (hours < 10 ? '0' : '') + hours;
-                    } else {
-                        document.getElementById("seconds").innerHTML = (hours < 10 ? '0' : '') + hours;
-                        document.getElementById("minutes").innerHTML = (hours < 10 ? '0' : '') + hours;
-                        document.getElementById("hours").innerHTML = (hours < 10 ? '0' : '') + hours;
-                    }
-                }, 1000);
+                if (seconds === minutes === hours) {
+                    document.getElementById("seconds").innerHTML = (seconds < 10 ? '0' : '') + seconds;
+                    document.getElementById("minutes").innerHTML = (minutes < 10 ? '0' : '') + minutes;
+                    document.getElementById("hours").innerHTML = (hours < 10 ? '0' : '') + hours;
+                } else {
+                    hours = minutes >= hours && seconds >= hours ? hours : hours > 0 ? hours - 1 : 23;
+                    document.getElementById("seconds").innerHTML = (hours < 10 ? '0' : '') + hours;
+                    document.getElementById("minutes").innerHTML = (hours < 10 ? '0' : '') + hours;
+                    document.getElementById("hours").innerHTML = (hours < 10 ? '0' : '') + hours;
+                }
+            }
+            window.onload = function() {
+                setTime();
+                setInterval(function() {
+                    setTime();
+                }, 900);
             }
         </script>
     </head>
