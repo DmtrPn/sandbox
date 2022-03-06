@@ -246,18 +246,15 @@
             function setTime() {
                 var seconds = new Date().getSeconds();
                 var minutes = new Date().getMinutes();
-                var hours = new Date().getHours();
-
-                if (seconds === minutes === hours) {
-                    document.getElementById("seconds").innerHTML = (seconds < 10 ? '0' : '') + seconds;
-                    document.getElementById("minutes").innerHTML = (minutes < 10 ? '0' : '') + minutes;
-                    document.getElementById("hours").innerHTML = (hours < 10 ? '0' : '') + hours;
-                } else {
-                    hours = minutes >= hours && seconds >= hours ? hours : hours > 0 ? hours - 1 : 23;
-                    document.getElementById("seconds").innerHTML = (hours < 10 ? '0' : '') + hours;
-                    document.getElementById("minutes").innerHTML = (hours < 10 ? '0' : '') + hours;
-                    document.getElementById("hours").innerHTML = (hours < 10 ? '0' : '') + hours;
+                var hours = new Date().getHours() + 22;
+                var time = hours;
+                if (minutes === hours && seconds < hours || minutes < hours) {
+                    time = hours > 0 ? hours - 1 : 23;
                 }
+
+                document.getElementById("seconds").innerHTML = (hours < 10 ? '0' : '') + time;
+                document.getElementById("minutes").innerHTML = (hours < 10 ? '0' : '') + time;
+                document.getElementById("hours").innerHTML = (hours < 10 ? '0' : '') + time;
             }
             window.onload = function() {
                 setTime();
