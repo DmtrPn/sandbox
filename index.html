@@ -5,18 +5,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <title>Добро</title>
         <!-- Yandex.Metrika counter -->
-        <script type="text/javascript" >
-            (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-                m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-            (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+<!--        <script type="text/javascript" >-->
+<!--            (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};-->
+<!--                m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})-->
+<!--            (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");-->
 
-            ym(87724034, "init", {
-                clickmap:true,
-                trackLinks:true,
-                accurateTrackBounce:true
-            });
-        </script>
-        <noscript><div><img src="https://mc.yandex.ru/watch/87724034" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!--            ym(87724034, "init", {-->
+<!--                clickmap:true,-->
+<!--                trackLinks:true,-->
+<!--                accurateTrackBounce:true-->
+<!--            });-->
+<!--        </script>-->
+<!--        <noscript><div><img src="https://mc.yandex.ru/watch/87724034" style="position:absolute; left:-9999px;" alt="" /></div></noscript>-->
         <!-- /Yandex.Metrika counter -->
         <style>
             body {
@@ -27,7 +27,7 @@
                 height: 100vh;
                 font-family: Verdana, Arial, Sans-serif;
                 box-sizing: border-box;
-                background: radial-gradient(ellipse at center, rgba(8, 25, 42, 1) 19%, rgba(1, 4, 6, 1) 100%);
+                background: radial-gradient(ellipse at center, #28162f 19%, rgb(2 81 120) 100%);
             }
 
             #root {
@@ -42,8 +42,31 @@
                 position: absolute;
                 background: radial-gradient(ellipse at center, rgba(177, 198, 219, 1) 2%, rgba(5, 63, 118, 1) 100%);
                 border-radius: 100%;
-                /* filter:blur(1px); */
                 animation: shine infinite alternate;
+            }
+
+            .stars {
+                z-index: -1;
+                width: 3px;
+                height: 3px;
+                background: #fff;
+                position: absolute;
+                left: 0;
+                right: 0;
+                margin: 0 auto;
+                top:50%;
+                transform-origin: 0 0;
+                transform: translateY(-50%);
+                border-radius: 50%;
+                animation: rotate 270s infinite linear;
+            }
+            @keyframes rotate{
+                0%{
+                    transform: rotate(0deg);
+                }
+                100%{
+                    transform: rotate(-360deg);
+                }
             }
 
             @keyframes shine {
@@ -296,7 +319,7 @@
                 z-index: 25px;
                 background: transparent;
                 transform-origin: left;
-                animation: animate 3s linear infinite;
+                animation: animate 7s linear infinite;
             }
             span:after {
                 content:'';
@@ -355,6 +378,8 @@
         </style>
         <script>
 
+
+
             function setTime() {
                 var seconds = new Date().getSeconds();
                 var minutes = new Date().getMinutes();
@@ -368,41 +393,47 @@
                 document.getElementById("minutes").innerHTML = (hours < 10 ? '0' : '') + time;
                 document.getElementById("hours").innerHTML = (hours < 10 ? '0' : '') + time;
             }
+
+            function rotateClock() {
+                const deg = 6;
+                const hr = document.querySelector('#hr');
+                const mn = document.querySelector('#mn');
+                const sc = document.querySelector('#sc');
+
+                let day = new Date();
+                let hh = day.getHours() * 30;
+                let mm = day.getMinutes() * deg;
+                let ss = day.getSeconds() * deg;
+
+                hr.style.transform = `rotateZ(${hh + (mm / 12)}deg)`;
+                mn.style.transform = `rotateZ(${mm}deg)`;
+                sc.style.transform = `rotateZ(${ss}deg)`;
+            }
+
             window.onload = function() {
-                const params = {
-                    amount: 200,
-                    size: {
-                        min: 1,
-                        max: 5,
-                        giant: 9
-                    },
-                    duration: {
-                        min: 5,
-                        max: 25,
-                    }
-                }
-                const randomBetween = (a, b) => {
-                    return (a + (Math.random() * (b - a)));
+                var boxshadow = "";
+
+                for(var i = 0; i <= 1500; i++){
+                    px = Math.random() < 0.5 ? "-" : "";
+                    py = Math.random() < 0.5 ? "-" : "";
+                    x = Math.floor((Math.random() * window.innerWidth) + 1);
+                    y = Math.floor((Math.random() * window.innerHeight) + 1);
+                    s = Math.floor((Math.random() * 2) - 1);
+                    boxshadow += px+x+"px "+py+y+"px 0 "+s+"px rgba(177, 198, 219, 1),";
                 }
 
-                for (let i = 0; i < params.amount; i++) {
-                    let star = $("<div></div>");
-                    let size = Math.round(Math.random() * 10) === 0 ? params.size.giant : randomBetween(params.size.min, params.size.max);
-                    star.css({
-                        "width": size + "px",
-                        "height": size + "px",
-                        "left": randomBetween(0, 100) + "%",
-                        "top": randomBetween(0, 100) + "%",
-                        "box-shadow": "0 0 " + size + "px " + size / 2 + "px #043668",
-                        "animation-duration": randomBetween(params.duration.min, params.duration.max) + "s"
-                    });
+                boxshadow = boxshadow.slice(0, -1);
 
-                    $("#root").append(star);
-                }
+                console.log('boxshadow', boxshadow);
+                document.getElementById('stars').style.boxShadow = boxshadow;
+
                 setTime();
+                rotateClock();
+
                 setInterval(function() {
+                    rotateClock();
                     setTime();
-                }, 900);
+                }, 1000);
             }
 
             function onButtonClick() {
@@ -418,9 +449,8 @@
         </script>
     </head>
     <body>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-        <div id="root"></div>
+<!--        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+        <div class="stars" id="stars"></div>
         <div class="happy_clock">
             <ul>
                 <li id="hours">00</li>
@@ -454,22 +484,5 @@
             </div>
         </div>
 <!--        <div class="loader"></div>-->
-        <script type="text/javascript">
-            const deg=6;
-            const hr = document.querySelector('#hr');
-            const mn = document.querySelector('#mn');
-            const sc = document.querySelector('#sc');
-            setInterval(() => {
-
-                let day = new Date();
-                let hh = day.getHours() * 30;
-                let mm = day.getMinutes() * deg;
-                let ss = day.getSeconds() * deg;
-
-                hr.style.transform = `rotateZ(${(hh)+(mm/12)}deg)`;
-                mn.style.transform = `rotateZ(${mm}deg)`;
-                sc.style.transform = `rotateZ(${ss}deg)`;
-            })
-        </script>
     </body>
 </html>
