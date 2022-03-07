@@ -441,7 +441,7 @@
 
                 if (textarea.value.length > 0) {
                     textarea.style.display = 'none';
-                    button.innerText = 'Твое желание отпарвленно в космос!\nОжидай в радости и в лучшее время оно сбудется';
+                    button.innerText = 'Твое желание отправлено в космос!\nОжидай в радости и в лучшее время оно сбудется';
                     button.classList.add('sendButton_sended');
                 }
             }
@@ -460,7 +460,7 @@
             </ul>
         </div>
 
-        <textarea id="wish" class="textarea"></textarea>
+        <textarea id="wish" class="textarea" placeholder="Напиши своё желание"></textarea>
         <button id="sendButton" class="sendButton" onclick="onButtonClick()">Отправить желание в космос</button>
 
         <div class="clock_wrapper">
